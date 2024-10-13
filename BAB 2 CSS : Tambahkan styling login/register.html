@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper - Daftar</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style untuk form */
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Style untuk pesan kesalahan pada input yang tidak valid */
+        input:invalid {
+            border: 2px solid red;
+        }
+
+        input:invalid:focus {
+            outline: none;
+            box-shadow: 0 0 5px red;
+        }
+
+        /* Style untuk tooltip bawaan browser */
+        input:invalid::after {
+            content: attr(title);
+        }
+
+        /* Pesan pop-up error kecil */
+        .error-message {
+            display: none;
+            color: red;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .show-error {
+            display: block;
+        }
+
+        /* Style untuk pesan sukses */
+        .success-message {
+            display: none;
+            color: green;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .show-success {
+            display: block;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+
+<section class="form-section">
+    <div class="form-container">
+        <h2>Daftar Sekarang</h2>
+
+        <!-- Form pendaftaran -->
+        <form onsubmit="return validateForm();">
+            <input type="text" id="username" placeholder="Username" required>
+            <span id="username-error" class="error-message">Username tidak boleh kosong!</span>
+
+            <input type="email" id="email" placeholder="Email" required title="Email harus dalam format yang benar, misal: name@example.com">
+            <span id="email-error" class="error-message">Format email tidak valid!</span>
+
+            <input type="password" id="password" placeholder="Password" required minlength="6" title="Password minimal harus 6 karakter">
+            <span id="password-error" class="error-message">Password harus minimal 6 karakter!</span>
+
+            <button type="submit" class="btn daftar-btn">Daftar</button>
+        </form>
+
+        <!-- Pesan sukses -->
+        <div id="success-message" class="success-message">Pendaftaran berhasil! Mengarahkan ke halaman login...</div>
+
+        <a href="login.html" class="btn">Sudah Punya Akun? Login</a>
+    </div>
+</section>
+
+<script>
+    // Fungsi untuk validasi form saat submit
+    function validateForm() {
+        var username = document.getElementById('username');
+        var email = document.getElementById('email');
+        var password = document.getElementById('password');
+        var isValid = true;
+
+        // Reset pesan error
+        document.getElementById('username-error').classList.remove('show-error');
+        document.getElementById('email-error').classList.remove('show-error');
+        document.getElementById('password-error').classList.remove('show-error');
+        document.getElementById('success-message').classList.remove('show-success');
+
+        // Validasi Username
+        if (username.value === "") {
+            document.getElementById('username-error').classList.add('show-error');
+            isValid = false;
+        }
+
+        // Validasi Email (menggunakan validasi HTML5 bawaan)
+        if (!email.checkValidity()) {
+            document.getElementById('email-error').classList.add('show-error');
+            isValid = false;
+        }
+
+        // Validasi Password (minimal 6 karakter)
+        if (password.value.length < 6) {
+            document.getElementById('password-error').classList.add('show-error');
+            isValid = false;
+        }
+
+        // Jika form valid, tampilkan pesan sukses dan redirect
+        if (isValid) {
+            document.getElementById('success-message').classList.add('show-success');
+            
+            // Redirect ke halaman login setelah 2 detik
+            setTimeout(function() {
+                window.location.href = "login.html";
+            }, 2000);
+
+            return false; // Mencegah submit form agar tidak reload halaman langsung
+        }
+
+        return isValid;
+    }
+</script>
+
+</body>
+</html>

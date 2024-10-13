@@ -1,0 +1,232 @@
+.layanan-interaksi {
+    background-color: #e0f7fa; 
+    padding: 20px; 
+    border-radius: 10px; 
+    margin-top: 200px; 
+    margin-right: 5px; 
+    min-height: 500px; 
+}
+
+.layanan {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+}
+
+.layanan-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    background-color: #f0f0f0; 
+    padding: 10px;
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    transition: background-color 0.3s; 
+}
+.layanan-item:hover {
+    background-color: #d1d1d1; 
+}
+
+.layanan-icon {
+    width: 50px; 
+    height: auto; 
+    margin-bottom: 10px; 
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #14c2e9;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #54d8b1;
+    padding: 10px 20px;
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar .login-btn {
+    background-color: #008000;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Form Section */
+.form-section {
+    background-color: #e9e3e3;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    background-color: #a8a8a8;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    width: 300px;
+}
+
+.form-container input {
+    display: block;
+    width: 90%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+.form-container .btn {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.forgot {
+    display: block;
+    margin: 10px 0;
+}
+
+
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.social-login {
+    margin-top: 20px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; 
+    margin-top: 10px;
+}
+
+.social-icons a {
+    display: inline-block;
+}
+
+.social-icon {
+    width: 30px; 
+    height: 30px; 
+    object-fit: cover; 
+    border-radius: 5px;
+}
+/* Tombol "Buat Akun" */
+.btn {
+    background-color: #007bff; /
+    color: white; 
+    border: none; 
+    border-radius: 20px; 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    margin-top: 20px; 
+}
+
+
+.social-login {
+    margin-top: 30px; 
+}
+
+@media (max-width: 768px) {
+    .layanan {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .layanan-item {
+        width: 90%; 
+    }
+
+    .navbar ul {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .form-container {
+        width: 100%; 
+        padding: 15px;
+    }
+
+    .social-icons {
+        gap: 10px; 
+    }
+
+    .btn {
+        width: 100%; 
+    }
+}
+
+
+@media (max-width: 480px) {
+    .layanan-item {
+        padding: 10px; 
+        border-radius: 8px; 
+    }
+
+    .navbar ul {
+        padding: 0; 
+        margin: 0;
+    }
+
+    .navbar ul li {
+        margin: 5px 0; 
+    }
+
+    .navbar .login-btn {
+        font-size: 14px;
+        padding: 8px 15px; 
+    }
+
+    .form-container {
+        padding: 10px;
+        width: 90%; 
+    }
+
+    .social-icon {
+        width: 25px; 
+        height: 25px;
+    }
+
+    .btn {
+        padding: 8px 15px; 
+        font-size: 14px;
+    }
+}
