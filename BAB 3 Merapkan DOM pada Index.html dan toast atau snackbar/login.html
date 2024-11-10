@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style untuk notifikasi di headbar */
+        .notification-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+            color: #fff;
+        }
+        .notification-success {
+            background-color: green;
+        }
+        .notification-error {
+            background-color: red;
+        }
+
+        /* Animasi untuk timbul perlahan */
+        @keyframes fadeIn {
+            0% { 
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Menambahkan animasi */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+    <script>
+        function showNotification(message, isSuccess) {
+            var notificationBar = document.getElementById('notification-bar');
+            notificationBar.innerHTML = message;
+
+            if (isSuccess) {
+                notificationBar.className = 'notification-bar notification-success fade-in';
+            } else {
+                notificationBar.className = 'notification-bar notification-error fade-in';
+            }
+
+            notificationBar.style.display = 'block';
+
+            // Sembunyikan notifikasi setelah 3 detik
+            setTimeout(function() {
+                notificationBar.style.display = 'none';
+            }, 3000);
+        }
+
+        function validateForm(event) {
+            event.preventDefault(); // Mencegah form langsung submit
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Cek apakah username dan password diisi
+            if (username === "" || password === "") {
+                // Tampilkan pesan error di headbar
+                showNotification('&#10060; Username atau Password tidak boleh kosong!', false);
+            } else if (!username.includes('@') || !username.includes('.')) {
+                // Validasi tambahan untuk email yang valid
+                showNotification('&#10060; Format email tidak valid!', false);
+            } else {
+                // Tampilkan pesan sukses di headbar
+                showNotification('&#10003; Login berhasil!', true);
+
+                // Redirect ke halaman dashboard setelah sedikit delay
+                setTimeout(function() {
+                    window.location.href = "dashboard.html";
+                }, 1500);
+            }
+        }
+    </script>
+</head>
+<body>
+
+<!-- Headbar untuk notifikasi -->
+<div id="notification-bar" class="notification-bar"></div>
+
+<section class="form-section">
+    <div class="form-container">
+        <h2>Sudah Punya Akun</h2>
+
+        <form onsubmit="validateForm(event)">
+            <input type="email" id="username" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <a href="#" class="forgot">Lupa Kata Sandi?</a>
+            <button type="submit" class="btn login-btn">Login</button>
+        </form>
+
+        <div class="social-login">
+            <p>Login Dengan</p>
+            <div class="social-icons">
+                <a href="#"><img src="assets/7123025_logo_google_g_icon.png" alt="Google" class="social-icon"></a>
+                <a href="#"><img src="assets/facebook-logo-square-shape.png" alt="Facebook" class="social-icon"></a>
+                <a href="#"><img src="assets/vecteezy_twitter-png-icon_16716467.png" alt="Twitter" class="social-icon"></a>
+            </div>
+        </div>
+        <a href="register.html" class="btn">Buat Akun</a>
+    </div>
+</section>
+
+</body>
+</html>
