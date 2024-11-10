@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('assets/pxfuel.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+        header nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        header nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+           
+            border-radius: 8px;
+            color: rgb(255, 248, 248);
+        }
+        .doctor-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .doctor-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+            color: black;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .doctor-card h4 {
+            margin-bottom: 10px;
+        }
+        .doctor-card button {
+            background-color: #f76c6c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .doctor-card button:hover {
+            background-color: #ff4949;
+        }
+        /* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    text-align: center;
+    color: black; /* Ini mengubah warna teks menjadi hitam di dalam modal */
+}
+
+.modal-content input, .modal-content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-content button {
+    background-color: #f76c6c;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #ff4949;
+}
+
+.modal-content p {
+    color: black; /* Mengubah warna teks paragraf menjadi hitam di dalam modal konfirmasi */
+}
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="title">HELPER</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Pilih Layanan Pacar</h2>
+    <div class="doctor-list">
+        <div class="doctor-card">
+            <img src="assets/124fe2cd-139a-4a13-b606-49239088fac9.jpg" alt="Dokter" width="100">
+            <h4>Sarah Permatasari</h4>
+            <p>25 tahun</p>
+            <button onclick="bukaForm('Sarah Permatasari')">Sewa Layanan</button>
+        </div>
+        <div class="doctor-card">
+            <img src="assets/mimimalch_168.jpg" alt="Dokter" width="100">
+            <h4>Bella Aprilia</h4>
+            <p>19 tahun</p>
+            <button onclick="bukaForm('Bella Aprilia')">Sewa Layanan</button>
+        </div>
+        <div class="doctor-card">
+            <img src="assets/47d24af1-5ed8-43dc-bcf1-49b96c95ef31.jpg" alt="Dokter" width="100">
+            <h4>Clara Patricia</h4>
+            <p>20 tahun</p>
+            <button onclick="bukaForm('Clara Patricia')">Sewa Layanan</button>
+        </div>
+        <!-- Tambah layanan lainnya sesuai kebutuhan -->
+    </div>
+</div>
+
+<!-- Modal Form -->
+<div id="formModal" class="modal">
+    <div class="modal-content">
+        <h3>Formulir Pembayaran</h3>
+        <p id="namaLayanan"></p>
+        <input type="text" id="nama" placeholder="Nama" required>
+        <input type="text" id="nohp" placeholder="No. HP" required>
+        <textarea id="alamat" placeholder="Pesan" required></textarea>
+        <button onclick="validasiForm()">Lanjutkan</button>
+        <button onclick="tutupModal()">Keluar</button>
+    </div>
+</div>
+
+<!-- Konfirmasi Pembelian -->
+<div id="konfirmasiModal" class="modal">
+    <div class="modal-content">
+        <h3>Konfirmasi Pembelian</h3>
+        <p>Layanan yang disewa: <span id="layananKonfirmasi"></span></p>
+        <p>Nama: <span id="konfirmasiNama"></span></p>
+        <p>No. HP: <span id="konfirmasiNoHp"></span></p>
+        <p>Alamat: <span id="konfirmasiAlamat"></span></p>
+        <p>Apakah Anda yakin ingin memesan layanan ini?</p>
+        <button onclick="tutupModal()">Batal</button>
+        <button onclick="selesaiPembelian()">Ya, Yakin</button>
+    </div>
+</div>
+
+<script>
+    let layananSaatIni = '';
+    let namaPembeli = '';
+    let nohpPembeli = '';
+    let alamatPembeli = '';
+
+    function bukaForm(layanan) {
+        layananSaatIni = layanan;
+        document.getElementById('namaLayanan').innerText = "Layanan: " + layanan;
+        document.getElementById('formModal').style.display = 'flex';
+    }
+
+    function tutupModal() {
+        document.getElementById('formModal').style.display = 'none';
+        document.getElementById('konfirmasiModal').style.display = 'none';
+    }
+
+    // Fungsi validasi form
+    function validasiForm() {
+        let nama = document.getElementById('nama').value;
+        let nohp = document.getElementById('nohp').value;
+        let alamat = document.getElementById('alamat').value;
+
+        if (nama === '' || nohp === '' || alamat === '') {
+            alert('Semua kolom wajib diisi!');
+        } else {
+            // Simpan data form ke variabel
+            namaPembeli = nama;
+            nohpPembeli = nohp;
+            alamatPembeli = alamat;
+
+            // Tutup form modal dan buka modal konfirmasi dengan menampilkan data pembeli
+            document.getElementById('formModal').style.display = 'none';
+            document.getElementById('layananKonfirmasi').innerText = layananSaatIni;
+            document.getElementById('konfirmasiNama').innerText = namaPembeli;
+            document.getElementById('konfirmasiNoHp').innerText = nohpPembeli;
+            document.getElementById('konfirmasiAlamat').innerText = alamatPembeli;
+            document.getElementById('konfirmasiModal').style.display = 'flex';
+        }
+    }
+
+    function selesaiPembelian() {
+        alert('Pembelian berhasil untuk layanan ' + layananSaatIni);
+        tutupModal();
+    }
+</script>
+
+</body>
+</html>
